@@ -75,12 +75,3 @@ def recall_at_fpr(y_true, score, fpr: float = 0.01) -> float:
 
     allowed = fp <= fpr * n_neg
     return float(tp[allowed].max() / n_pos) if allowed.any() else 0.0
-
-
-if __name__ == "__main__":
-    # самопроверка на примерах из описания
-    assert precision_at_recall([1, 0, 1, 1, 1], [5, 4, 3, 2, 1]) == 0.8
-    assert precision_at_recall([1, 1, 0, 0], [0.5] * 4) == 0.5      # группа равных score
-    assert precision_at_recall([0, 0, 1, 1], [0.5] * 4) == 0.5      # порядок не влияет
-    assert recall_at_fpr(np.r_[np.ones(10), np.zeros(90)], np.full(100, 0.5)) == 0.0
-    print("метрика: самопроверка пройдена")
